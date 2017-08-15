@@ -1,1 +1,25 @@
-REGISTER
+<form class="" action="/users/register" method="post">
+    <div class="form-group">
+        <label for="inputUsername">Username: </label>
+        <input type="text" class="form-control" name="userName" value="">
+    </div>
+    <div class="form-group">
+        <label for="inputEmail">Email: </label>
+        <input type="email" class="form-control" name="email" value="">
+        <small id="emailHelpBlock" class="form-text text-muted">
+          We'll never share your email.
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Password: </label>
+        <input type="password" class="form-control" name="password" value="">
+        <small id="passwordHelpBlock" class="form-text text-muted">
+          Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="inputPasswordAgain">Password again: </label>
+        <input type="password" class="form-control" name="passwordAgain" value="">
+    </div>
+    <button type="submit" name="button" class="btn btn-default">Register</button>
+</form>
