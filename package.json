@@ -1,0 +1,40 @@
+{
+  "name": "login-passportjs",
+  "version": "1.0.0",
+  "description": "a login system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lngka/login-passportjs.git"
+  },
+  "keywords": [
+    "login",
+    "auth"
+  ],
+  "author": "lngka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lngka/login-passportjs/issues"
+  },
+  "homepage": "https://github.com/lngka/login-passportjs#readme",
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "eslint": "^4.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*"
+  }
+}
