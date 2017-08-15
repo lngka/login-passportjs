@@ -52,7 +52,22 @@ app.use(express.static(path.join(process.cwd(), "public")));
 
 // express session
 app.use(session({
-    "secret": "secret",
+    "secret": "mysecret",
     "saveUninitalized": true,
     "resave": true
 }));
+
+// setup flash
+app.use(flash());
+
+app.use(function(res, req, next) {
+    res.locals.success_msg = req.flash("success_msg");
+    res.locals.error_msg = req.flash("error_msg");
+    res.locals.error = req.flash("error");
+    next();
+});
+
+app.set("port", process.env.PORT || 3000);
+app.listen(app.get("port"), function() {
+    console.log("Server listens on port " + app.get("port"));
+})
