@@ -1,23 +1,26 @@
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const exphbs = require("express-handlebars");
+const express          = require("express");
+const path             = require("path");
+const bodyParser       = require("body-parser");
+const cookieParser     = require("cookie-parser");
+const exphbs           = require("express-handlebars");
 const expressValidator = require("express-validator");
-const flash = require("connect-flash");
-const session = require("express-session");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const mongoose = require("mongoose");
+const flash            = require("connect-flash");
+const session          = require("express-session");
+const passport         = require("passport");
+const LocalStrategy    = require("passport-local").Strategy;
+const mongoose         = require("mongoose");
 
 mongoose.connect("mongodb://localhost/login-passportjs");
 const db = mongoose.connection;
 
-const routes = require("./app/routes/routes.js");
-const users = require("./app/routes/users.js");
+const routes           = require("./app/routes/routes.js");
+const users            = require("./app/routes/users.js");
 
-// init
+// init app
 const app = express();
+
+// static folder
+app.use(express.static(path.join(process.cwd(), "public")));
 
 // view engine
 app.set("views", path.join(process.cwd(), "views"));
@@ -28,6 +31,26 @@ app.set("view engine", "handlebars");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended": true}));
 app.use(cookieParser());
+
+// express session
+app.use(session({
+    "secret": "mysecret",
+    "saveUninitialized": true,
+    "resave": true
+}));
+
+// setup flash
+app.use(flash());
+app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash("success_msg");
+    res.locals.error_msg = req.flash("error_msg");
+    res.locals.error = req.flash("error");
+    next();
+});
+
+// init passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // express validator
 app.use(expressValidator({
@@ -47,27 +70,12 @@ app.use(expressValidator({
     }
 }));
 
-// static folder
-app.use(express.static(path.join(process.cwd(), "public")));
+// setup the routes
+app.use("/", routes);
+app.use("/users", users);
 
-// express session
-app.use(session({
-    "secret": "mysecret",
-    "saveUninitalized": true,
-    "resave": true
-}));
-
-// setup flash
-app.use(flash());
-
-app.use(function(res, req, next) {
-    res.locals.success_msg = req.flash("success_msg");
-    res.locals.error_msg = req.flash("error_msg");
-    res.locals.error = req.flash("error");
-    next();
-});
-
+// start the thing
 app.set("port", process.env.PORT || 3000);
 app.listen(app.get("port"), function() {
     console.log("Server listens on port " + app.get("port"));
-})
+});
