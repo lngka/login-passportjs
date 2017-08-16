@@ -8,6 +8,7 @@
     </head>
     <body>
         <div class="container">
+            <!-- the nav bar -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="#">Login System</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,15 +28,29 @@
                     </ul>
                 </div>
             </nav>
+            <!-- flash message area -->
+            <div class="row">
+                {{#if success_msg}}
+                    <div class="alert alert-success">{{success_msg}}</div>
+                {{/if}}
+                {{#if error_msg}}
+                    <div class="alert alert-danger">{{error_msg}}</div>
+                {{/if}}
+                {{#if error}}
+                    <div class="alert alert-danger">{{error}}</div>
+                {{/if}}
+            </div>
 
+             <!-- main content -->
             <div class="jumbotron">
                 {{{body}}}
             </div>
 
+            <!-- the foot -->
             <footer class="footer">
                 <p>&copy; 2017 lngka, Inc.</p>
             </footer>
-
         </div> <!-- /container -->
+        <script type="text/javascript" src="/js/bootstrap.js"></script>
     </body>
 </html>

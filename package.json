@@ -36,5 +36,8 @@
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3"
   }
 }
