@@ -2,12 +2,10 @@
 const express       = require("express");
 const router        = express.Router();
 const passport      = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+const passportConfig = require("../config/passportConfig.js");
 
 // some DB functions
 const createUser    = require("../common/createUser.js");
-const getUserByUsername = require("../common/getUserByUsername.js");
-const checkCorrectPassword = require("../common/checkCorrectPassword.js");
 
 router.get("/register", function(req, res) {
     res.render("register");
@@ -46,39 +44,10 @@ router.post("/register", function(req, res) {
     }
 });
 
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        // User.findOne({ username: username }, function (err, user) {
-        //     if (err) { return done(err); }
-        //     if (!user) {
-        //         return done(null, false, { message: "Incorrect username." });
-        //     }
-        //     if (!user.validPassword(password)) {
-        //         return done(null, false, { message: "Incorrect password." });
-        //     }
-        //     return done(null, user);
-        // });
-        getUserByUsername(username, function(err, user) {
-            if (err) { return done(err); }
-
-            if (!user) {
-                return done(null, false, { message: "Incorrect username."});
-            }
-
-            var hashedPassword = user.password;
-            var submittedPassword = password;
-            checkCorrectPassword(submittedPassword, hashedPassword, function(err, isCorrect) {
-                if (err) { return done(err); }
-
-                if (isCorrect) { return done(null, user);}
-                else { return done(null, false, {"message": "Incorrect password."}); }
-            });
-        });
-    }
-));
+passportConfig(passport);
 router.post("/login", passport.authenticate("local", {
     "successRedirect": "/",
-    "failureRedirect": "users/login",
+    "failureRedirect": "/users/login",
     "failureFlash": true
 }));
 

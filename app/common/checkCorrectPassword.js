@@ -1,4 +1,3 @@
-const User = require("../models/user.js");
 const bcryptjs = require("bcryptjs");
 
 function checkCorrectPassword(submittedPassword, hash, callback) {
