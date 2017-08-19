@@ -6,18 +6,18 @@ const passportConfig = require("../config/passportConfig.js");
 
 // some DB functions
 const createUser = require("../common/createUser.js");
-const isLoggedIn = require("../common/isLoggedIn.js");
 
 router.get("/register", function(req, res) {
     res.render("register");
 });
 
 router.get("/login", function(req, res) {
-    if (isLoggedIn(req, res)) {
+    if (req.isAuthenticated()) {
         req.flash("success_msg", "But you are already logged in!");
         res.render("index");
+    } else {
+        res.render("login");
     }
-    res.render("login");
 });
 
 router.post("/register", function(req, res) {
