@@ -53,6 +53,7 @@ app.use(function(req, res, next) {
     // handlebars layout check this
     // if user object exist, we dont show login or register on the menu bar
     res.locals.user = req.user || null;
+    console.log(res.locals.user);
     next();
 });
 
