@@ -37,18 +37,25 @@ app.use(session({
     "resave": true
 }));
 
-// setup flash
-app.use(flash());
-app.use(function(req, res, next) {
-    res.locals.success_msg = req.flash("success_msg");
-    res.locals.error_msg = req.flash("error_msg");
-    res.locals.error = req.flash("error");
-    next();
-});
-
 // init passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+// init flash memory
+app.use(flash());
+
+// setup variable for template engine
+app.use(function(req, res, next) {
+    // handlebars will render the flash message if available
+    res.locals.success_msg = req.flash("success_msg");
+    res.locals.error_msg = req.flash("error_msg");
+    res.locals.error = req.flash("error");
+    // handlebars layout check this
+    // if user object exist, we dont show login or register on the menu bar
+    res.locals.user = req.user || null;
+    next();
+});
+
 
 // express validator
 app.use(expressValidator({

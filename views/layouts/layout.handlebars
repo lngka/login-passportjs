@@ -16,33 +16,33 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/users/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/users/register">Register</a>
-                        </li>
+                        {{#if user}}
+                        <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/users/logout">Logout</a></li>
+                        {{else}}
+                        <li class="nav-item"><a class="nav-link" href="/users/login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/users/register">Register</a></li>
+                        {{/if}}
+
                     </ul>
                 </div>
             </nav>
-            <!-- flash message area -->
-            <div class="row">
-                {{#if success_msg}}
-                    <div class="alert alert-success">{{success_msg}}</div>
-                {{/if}}
-                {{#if error_msg}}
-                    <div class="alert alert-danger">{{error_msg}}</div>
-                {{/if}}
-                {{#if error}}
-                    <div class="alert alert-success">{{error}}</div>
-                {{/if}}
-            </div>
 
              <!-- main content -->
             <div class="jumbotron">
+                <!-- flash message area -->
+                <div class="row">
+                    {{#if success_msg}}
+                        <div class="alert alert-success">{{success_msg}}</div>
+                    {{/if}}
+                    {{#if error_msg}}
+                        <div class="alert alert-danger">{{error_msg}}</div>
+                    {{/if}}
+                    {{#if error}}
+                        <div class="alert alert-danger">{{error}}</div>
+                    {{/if}}
+                </div>
+                <!-- the bodey -->
                 {{{body}}}
             </div>
 
@@ -50,6 +50,7 @@
             <footer class="footer">
                 <p>&copy; 2017 lngka, Inc.</p>
             </footer>
+
         </div> <!-- /container -->
         <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.js"></script>
